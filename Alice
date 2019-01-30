@@ -39,6 +39,7 @@ def init_graph():
 
 def gen_isomorphism(G):
     print(G)
+    print()
     p = numpy.array(random.sample(range(graph_size), graph_size))
     G1 = G[:, p]
     G = G1[p, :]
@@ -48,6 +49,7 @@ def gen_isomorphism(G):
     global permutation
     permutation = p
     print(G)
+    print()
     print(permutation)
     return G
 

@@ -2,10 +2,11 @@
 import socket
 import _thread
 import numpy
+msg_size = 100000
 graph_size = 10
 
 def recive_graph():
-    msg = s.recv(1024)
+    msg = s.recv(msg_size)
     H = numpy.frombuffer(msg)
     return H.reshape((graph_size, graph_size))
 
@@ -14,7 +15,9 @@ def check_isomorphism(G, H, p):
     G = G1[p, :]
 
     print(G)
+    print()
     print(H)
+    print()
     print(p)
     if numpy.array_equal(G, H):
         return True
@@ -23,6 +26,7 @@ def check_isomorphism(G, H, p):
 
 def check_cycle(H, C):
     print(C)
+    print()
     for j in range(0, graph_size):
         for i in range(0, graph_size):
             if C[j, i] == 1 and H[j, i] == 0:
@@ -59,7 +63,7 @@ while command != 'end':
     command = input('> ')
     s.send(bytes(command, encoding='utf-8'))
     if command == 'iso':
-        msg = s.recv(1024)
+        msg = s.recv(msg_size)
         p = numpy.frombuffer(msg, dtype=int)
         print(check_isomorphism(G, H, p))
     elif command == 'cykl':
